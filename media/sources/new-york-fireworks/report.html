@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>new-york-fireworks Export, at</title>
+	<link rel="stylesheet" href="report/datatables.min.css">
+	<link rel="stylesheet" href="report/open-iconic/font/css/open-iconic-bootstrap.min.css">
+	<style type="text/css">
+		.thumb-img {
+			object-fit: none;
+			object-position: center;
+			width: 100%;
+			max-height: 100px;
+			margin-bottom: 1rem;
+		}
+
+		.logo {
+			width: 108px;
+			position: absolute;
+			right: 0px;
+			top: 20px;
+			margin-right: 32px;
+			overflow: hidden;
+		}
+
+		.logo img {
+			height: 45px;
+		}
+
+		.dataTables_filter {
+			display: none;
+		}
+
+		.img-wrapper {
+			display: block;
+			height: 100px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="logo"><img src="report/footerlogo.png" /></div>
+	<h1>new-york-fireworks</h1>
+	<p class="lead">
+		<p>Case created: <span class="case-created"></span></p>
+		<p>Export created: <span class="export-created"></span></p>
+	</p>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#pages">Pages <span class="badge badge-light" id="pagesLen"></span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#notes">Notes <span class="badge badge-light" id="notesLen"></span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#photos">Photos <span class="badge badge-light" id="photosLen"></span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#attachments">Attachments <span
+							class="badge badge-light" id="attachmentsLen"></span></a>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-md-0 nosubmit" _lpchecked="1">
+				<input class="form-control" type="text" id="search" placeholder="Search">
+			</form>
+		</div>
+	</nav>
+	<div id="pages" style="margin-top: 10px;">
+		<table class="table table-striped table-responsive" width="100%">
+			<thead class="thead-light">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Date</th>
+				<th>URL</th>
+				<th>Screenshot</th>
+				<th>Content hash</th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+	<div id="notes" style="margin-top: 10px;">
+		<table class="table table-striped table-responsive" width="100%"  style="display: none;">
+			<thead class="thead-light">
+			<tr>
+				<th>Date</th>
+				<th>URL</th>
+				<th>Note text</th>
+				<th>Screenshot</th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+	<div id="photos" style="margin-top: 10px;">
+		<table class="table table-striped table-responsive" width="100%"  style="display: none;">
+			<thead class="thead-light">
+			<tr>
+				<th>Date</th>
+				<th>URL</th>
+				<th>Photo URL</th>
+				<th>Photo Hash</th>
+				<th>Caption</th>
+				<th>Thumbnail</th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+	<div id="attachments" style="margin-top: 10px;">
+		<table class="table table-striped table-responsive" width="100%" style="display:none;">
+			<thead class="thead-light">
+			<tr>
+				<th>Date</th>
+				<th>Source</th>
+				<th>Hash</th>
+				<th>Attachment</th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<script src="report/datatables.min.js"></script>
+<script src="report/moment.min.js"></script>
+<script src="report/datetime-moment.js"></script>
+<script type="application/javascript">
+	String.prototype.escapeHTML = function(){
+		var div = document.createElement('div');
+		div.appendChild(document.createTextNode(this));
+		return div.innerHTML;
+	};
+
+	$(document).ready(function () {
+		let photos = JSON.parse("[]");
+		let pages = JSON.parse("[{\"id\":1227,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:40:49Z\",\"timestamp_updated\":\"2020-06-23T16:40:49Z\",\"url\":\"https://twitter.com/search?q=ny%20fireworks\\u0026src=typed_query\\u0026f=image\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"1fac92bff9555d1c5ae68287322a15656a4c00b241442d2f7f11cbb46fabc87c\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1228,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:40:52Z\",\"timestamp_updated\":\"2020-06-23T16:40:52Z\",\"url\":\"https://twitter.com/hopelesscindy/status/1275099095565307904/photo/1\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"ef94a6df73e183da7eeaa07762c78f3195cb8e17e89b21c6957e4f062f84b7bf\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1229,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:41:21Z\",\"timestamp_updated\":\"2020-06-23T16:41:21Z\",\"url\":\"https://twitter.com/jaaaaamie/status/1275057596827910144/photo/1\",\"title\":\"jamie earth home on Twitter: \\\"@cry  stal   (apparen tly last night cops showed up in riot gear in NY “in response to fireworks”) htt ps://t.co/4phM6tRFEd\\\" / Twitter\",\"content_hash\":\"ca4accc97e36116373096f292d95058fa6ec9f7ae50ed43d7edfd754e8d39e94\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1230,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:42:13Z\",\"timestamp_updated\":\"2020-06-23T16:42:13Z\",\"url\":\"https://twitter.com/NidaKhanNY/status/1275469023967395842/photo/1\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"ff3a118e88593450fbd7761a578723b338d000f36a0f4d15678eb94c89bf6613\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1231,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:42:34Z\",\"timestamp_updated\":\"2020-06-23T16:42:34Z\",\"url\":\"https://twitter.com/jasminemca/status/1275211623624572928/photo/1\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"fdf9ac8c065aca0b235e005b10b5c10865e86b3839d82176729d4cc2b534696c\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1232,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:43:01Z\",\"timestamp_updated\":\"2020-06-23T16:43:01Z\",\"url\":\"https://twitter.com/JerrielRosen/status/1272543887735873536/photo/1\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"66b93c8c685af55ae23f26b2481cf9c6ba1f6998d3451e81cd30d83134fc3372\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1233,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:43:19Z\",\"timestamp_updated\":\"2020-06-23T16:43:19Z\",\"url\":\"https://twitter.com/alissanity/status/1274888555135791104/photo/1\",\"title\":\"ny fireworks - Twitter Search / Twitter\",\"content_hash\":\"edb69284eba6cf3330af33bf221f025f5b64f4e741e7260cc53706af6248248e\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1234,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:43:54Z\",\"timestamp_updated\":\"2020-06-23T16:43:54Z\",\"url\":\"https://www.instagram.com/p/CBquk1sBuUM/?igshid=1jbfskdlv371u\",\"title\":\"ᴊдміе к ц е\\ufffd \\ufffd on Instagram: “Rp from @swarovskisinglet I do believe this. If u know what they did to Black Liberation movements decades ago, best believe they are…”\",\"content_hash\":\"fb32d6c6a1b38407129cbd52834b966afa090d98eec0ac08244b6949582207f5\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1235,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:44:53Z\",\"timestamp_updated\":\"2020-06-23T16:44:53Z\",\"url\":\"https://www.instagram.com/p/CBquk1sBuUM/?igshid=1jbfskdlv371u\",\"title\":\"ᴊдміе к ц е\\ufffd \\ufffd on Instagram: “Rp from @swarovskisinglet I do believe this. If u know what they did to Black Liberation movements decades ago, best believe they are…”\",\"content_hash\":\"d73365756c2d539d5133e4abe822c63163fc7d95a494576ee021923d04b8a1c5\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1236,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:47:43Z\",\"timestamp_updated\":\"2020-06-23T16:47:54Z\",\"url\":\"https://www.instagram.com/p/CBwoV0fJjN6/\",\"title\":\"#nyfireworks hashtag on Instagram • Photos and Videos\",\"content_hash\":\"845184c27fd182ea56c040535a186175c63032c789496576cbc87a0c89e3983a\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1237,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:51:17Z\",\"timestamp_updated\":\"2020-06-23T16:51:22Z\",\"url\":\"https://twitter.com/girlbuggg/status/1275155297653448704\",\"title\":\"mama of greto spaghetto on Twitter: \\\"well look at that! nypd lighting fireworks. https://t.co/g8rkQx4TSP\\\" / Twitter\",\"content_hash\":\"a51adfebd2ca1fbcccd01a8851ece0447d90d21b96b51b2ac664217aece5f865\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1238,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:52:18Z\",\"timestamp_updated\":\"2020-06-23T16:52:23Z\",\"url\":\"https://twitter.com/emdubin/status/1274391673825628160\",\"title\":\"Em 🌚 on Twitter: \\\"Whatever's happening w ith the #fireworks in NYC is....not normal. This is not my original post, just reposting from fb because I agree this is fuckin suspicious. https://t.co/QhKrNPhqjr\\\" / Twitter\",\"content_hash\":\"b05478a6b5cc41f4233e59feba293a1b94e9dc58e8f88574e4948be8b880ce97\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1239,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:52:27Z\",\"timestamp_updated\":\"2020-06-23T16:52:27Z\",\"url\":\"https://twitter.com/emdubin/status/1274391673825628160/photo/1\",\"title\":\"Em 🌚 on Twitter: \\\"Whatever's happening w ith the #fireworks in NYC is....not normal. This is not my original post, just reposting from fb because I agree this is fuckin suspicious. https://t.co/QhKrNPhqjr\\\" / Twitter\",\"content_hash\":\"a5b8e5e4befa18f00c4ded8d3d63eab6811031eadf76cb83568d16ca9d099dda\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1240,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:52:32Z\",\"timestamp_updated\":\"2020-06-23T16:52:32Z\",\"url\":\"https://twitter.com/emdubin/status/1274391673825628160/photo/2\",\"title\":\"Em 🌚 on Twitter: \\\"Whatever's happening w ith the #fireworks in NYC is....not normal. This is not my original post, just reposting from fb because I agree this is fuckin suspicious. https://t.co/QhKrNPhqjr\\\" / Twitter\",\"content_hash\":\"3146ee4d7e25882814068c2a1091523c883ef045e03dded00e5bc71d7e315128\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1241,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:52:36Z\",\"timestamp_updated\":\"2020-06-23T16:52:36Z\",\"url\":\"https://twitter.com/emdubin/status/1274391673825628160/photo/3\",\"title\":\"Em 🌚 on Twitter: \\\"Whatever's happening w ith the #fireworks in NYC is....not normal. This is not my original post, just reposting from fb because I agree this is fuckin suspicious. https://t.co/QhKrNPhqjr\\\" / Twitter\",\"content_hash\":\"df5db58130303c545920c45855c3975ec461eb664f4569dab9212d381754b971\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1242,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:52:46Z\",\"timestamp_updated\":\"2020-06-23T16:52:55Z\",\"url\":\"https://twitter.com/SonofBaldwin/status/1274341678846009349\",\"title\":\"Son of Baldwin (Robert Jones, Jr.) on Twitter: \\\"Good morning Family:\\\" / Twitter\",\"content_hash\":\"768bc0bda8a103e86f06f4e1ed2a18547926eaf968a33e76eda201750693f3df\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null},{\"id\":1243,\"case_id\":4,\"timestamp_created\":\"2020-06-23T16:53:01Z\",\"timestamp_updated\":\"2020-06-23T16:54:05Z\",\"url\":\"https://www.facebook.com/sonofbaldwinfb/posts/10157844055022862\",\"title\":\"(1) Son of Baldwin - Posts\",\"content_hash\":\"01cd92fa69c3534fb27b0d06547739911c27ce1f336dc8c76dcad44010337cff\",\"is_important\":false,\"synced_at\":\"0001-01-01T00:00:00Z\",\"files\":[],\"tags\":null}]");
+		let notes = JSON.parse("[]");
+		let attachments = JSON.parse("[]");
+
+		let createdDate = moment("2020-06-23T11:40:32.804472-05:00", "YYYY-MM-DD HH:mm:ss.S Z").local().format('MMMM D, YYYY HH:mm:ss')
+		let exportDate = moment("2020-06-23T11:59:34.107938-05:00", "YYYY-MM-DD HH:mm:ss.S Z").local().format('MMMM D, YYYY HH:mm:ss');
+
+		$('#photosLen').text(photos.length);
+		$('#pagesLen').text(pages.length);
+		$('#notesLen').text(notes.length);
+		$('#attachmentsLen').text(attachments.length);
+		$('.case-created').text(createdDate);
+		$('.export-created').text(exportDate);
+		$('title').text('new-york-fireworks, at ' + exportDate);
+
+		$.fn.dataTable.moment('MMMM D, YYYY HH:mm:ss');
+
+		$('#notes').hide();
+		$('#photos').hide();
+		$('#attachments').hide();
+
+		$('#photos table').DataTable({
+			paging: false,
+			responsive: false,
+			data: photos,
+			deferRender: true,
+			columns: [
+				{
+					data: 'date',
+					render: function (data, type, row) {
+						let date = moment(row.date, "YYYY-MM-DD HH:mm:ss.S Z");
+						return date.local().format('MMMM D, YYYY HH:mm:ss');
+					},
+				},{
+					data: 'url',
+					render: function (data, type, row) {
+						return '<a href="pages/' + row.page_id + '.mhtml">' + row.url.substring(0, 100) + '</a> ' +
+								'<a href="' + row.url + '" target="_blank"><span class="oi oi-external-link"></span></a>';
+					},
+				},
+				{
+					render: function (data, type, row) {
+						return '<a href="' + row.photo_url + '">' + row.photo_url.substring(0, 100) + '</a>';
+					}
+				},
+				{
+					data: 'photo_hash',
+				},
+				{
+					render: function (data, type, row) {
+						return row.caption.escapeHTML();
+					}
+				},{
+					render: function (data, type, row) {
+						return '<a href="' + row.filename + '" class="img-wrapper"><img src="' + row.filename + '" width="100"/></a>';
+					},
+					'orderable': false
+				},
+			],
+		});
+
+		$('#pages table').DataTable({
+			paging: false,
+			responsive: false,
+			data: pages,
+			deferRender: true,
+			columns: [
+				{data: 'id'},
+				{
+					render: function (data, type, row) {
+						return row.title.escapeHTML();
+					}
+				},
+				{
+					data: 'timestamp_created',
+					render: function (data, type, row) {
+						let date = moment(row.timestamp_created, "YYYY-MM-DD HH:mm:ss.S Z");
+						return date.local().format('MMMM D, YYYY HH:mm:ss');
+					},
+				},
+				{
+					data: 'url',
+					render: function (data, type, row) {
+					    if(row.files.length > 0) {
+						    return '<a href="documents/' + row.files[0].file_hash + '.' + row.files[0].ext + '">' + row.url.substring(0, 100) + '</a> ';
+						} else {
+						    return '<a href="pages/' + row.id + '.mhtml">' + row.url.substring(0, 100) + '</a> ';
+						}
+					}
+				},
+				{
+					render: function (data, type, row) {
+						return '<a href="pages/' + row.id + '.jpeg" class="img-wrapper"><img src="pages/' + row.id + '.jpeg" width="100"/></a>';
+					},
+					'orderable': false
+				},
+				{data: 'content_hash'}
+			],
+		});
+
+		$('#notes table').DataTable({
+			paging: false,
+			responsive: false,
+			data: notes,
+			deferRender: true,
+			columns: [
+				{
+					data: 'NoteDate',
+					render: function (data, type, row) {
+						let date = moment(row.NoteDate, "YYYY-MM-DD HH:mm:ss.S Z");
+						return date.local().format('MMMM D, YYYY HH:mm:ss');
+					},
+				},
+				{
+					data: 'url',
+					render: function (data, type, row) {
+						return '<a href="pages/' + row.Page.id + '.mhtml">' + row.Page.url.substring(0, 100) + '</a> ' +
+								'<a href="' + row.Page.url + '" target="_blank"><span class="oi oi-external-link"></span></a>';
+					},
+				},
+				{
+					render: function (data, type, row) {
+						return row.Note.escapeHTML();
+					}
+				},
+				{
+					render: function (data, type, row) {
+						return '<a href="note_screenshots/' + row.ID + '.jpeg" class="img-wrapper"><img src="note_screenshots/' + row.ID + '.jpeg" width="100"/></a>';
+					},
+					'orderable': false
+				}
+			],
+		});
+
+		$('#attachments table').DataTable({
+			paging: false,
+			responsive: false,
+			data: attachments,
+			deferRender: true,
+			columns: [
+				{
+					data: 'AttachedDate',
+					render: function (data, type, row) {
+						let date = moment(row.AttachedDate, "YYYY-MM-DD HH:mm:ss.S Z");
+						return date.local().format('MMMM D, YYYY HH:mm:ss');
+					},
+				},
+				{
+					data: 'Source',
+				},
+				{
+					data: 'Hash',
+				},
+				{
+					render: function (data, type, row) {
+						return '<a href="attachments/' + row.Filename + '">' + row.Filename + '</a>';
+					},
+					'orderable': false
+				}
+			],
+		});
+
+		let $activeTable  = $('#pages table');
+		$('a.nav-link').click(function (e) {
+			e.preventDefault();
+			const $this = $(this);
+			const targetID = $this.attr('href').replace('#', '');
+			const currentID = $('.nav-item.active a.nav-link').attr('href').replace('#', '');
+
+			
+			if (targetID === currentID) {
+				return;
+			}
+
+			$('#' + currentID).hide();
+			$('#' + targetID).show();
+			$activeTable = $('#' + targetID + ' table');
+			$activeTable.show();
+			$('.nav-item.active').removeClass('active');
+			$this.parent().addClass('active');
+		});
+
+		const $search = $('#search');
+		$search.keyup((e) => {
+			let oTable = $activeTable.DataTable();
+			oTable.search($search.val()).draw() ;
+		});
+
+		$(document).on('keypress', '.nosubmit', function(event) {
+			return event.keyCode !== 13;
+		});
+	});
+</script>
+</body>
+</html>
